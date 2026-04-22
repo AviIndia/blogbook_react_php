@@ -1,8 +1,42 @@
-
+import { useState } from "react";
+import { loginUser } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate()
+ const [form, setForm] = useState({
+    email: "",
+    password: ""
+  });
+
+  // ✅ FIXED handleChange
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm(prev => ({
+      ...prev,          // 🔥 keep old values
+      [name]: value
+    }));
+  }
+
+  // ✅ Handle Submit
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const res = await loginUser(form.email, form.password);
+
+    if (res.success) {
+      console.log(res.user);
+
+      // 🔐 store token
+      localStorage.setItem("token", res.user.token);
+      localStorage.setItem("user", JSON.stringify(res.user));
+
+      alert("Login successful");
+      navigate("/profile");
+    } else {
+      alert(res.message);
+    }
+  };
   
-
-
   return (
     <div className="heading-page header-text">
       <section className="page-heading">
@@ -27,14 +61,15 @@ const Login = () => {
 
            
 
-              <form >
+              <form onSubmit={handleLogin}>
                 <div className="mb-3">
                   <label>Email</label>
                   <input
                     type="email"
                     name="email"
+                    value={form.email}
+                    onChange={handleChange}   // ✅ added
                     className="form-control"
-                   
                   />
                 </div>
 
@@ -43,8 +78,9 @@ const Login = () => {
                   <input
                     type="password"
                     name="password"
+                    value={form.password}
+                    onChange={handleChange}   // ✅ added
                     className="form-control"
-                    
                   />
                 </div>
 
