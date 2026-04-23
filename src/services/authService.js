@@ -15,3 +15,19 @@ export const loginUser = async(email,password) =>{
     };
     }
 }
+
+
+
+export const signUpadd = async (userData) => {
+  try {
+    const res = await api.post(`/auth/register.php`, userData);
+    return res.data;
+  } catch (error) {
+    console.error("Signup Error", error);
+
+    return {
+      success: false,
+      message: error.response?.data?.message || "Signup failed"
+    };
+  }
+};
