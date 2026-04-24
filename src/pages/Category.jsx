@@ -1,22 +1,35 @@
-import { useState } from "react"
-import { addCategory } from "../services/blogservice";
+import { useEffect, useState } from "react"
+import { addCategory, getCategory } from "../services/blogservice";
 
 
 const Category = ()=>{
-    const [form, setForm] = useState({
-    category_name: ""
-    });
+    const [form, setForm] = useState({ category_name: ""});
+   const [categoryData, setCategoryData] = useState([]);
+
+   // ✅ move outside
+const fetchCategory = async () => {
+  try {
+    const res = await getCategory();
+    setCategoryData(res.data);
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+  }
+};
+
+useEffect(() => {
+  fetchCategory(); // ✅ works
+}, []);
 
 const postCategory = async (e) => {
   e.preventDefault();
 
   const res = await addCategory(form);
 
-  console.log("RES:", res);  // 🔥 MUST
-
   if (res.success) {
     alert(res.message || "Category added");
     setForm({ category_name: "" });
+
+    fetchCategory(); // ✅ now works
   } else {
     alert(res.message || "Error occurred");
   }
@@ -60,7 +73,7 @@ const postCategory = async (e) => {
                                         />
 
                                         <button className="btn btn-primary" type="submit">
-                                            Save
+                                            ADD CATEGORY
                                         </button>
                                         </form>
 
@@ -81,12 +94,22 @@ const postCategory = async (e) => {
                                             </tr>
                                             
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
+                                      <tbody>
+                                        {categoryData.length > 0 ? (
+                                        categoryData.map((item, index) => (
+                                            <tr key={item.id || index}>
+                                            <td>{item.id || index + 1}</td>
+                                            <td>{item.category_name}</td>
                                             </tr>
-                                        </tbody>
+                                        ))
+                                        ) : (
+                                        <tr>
+                                            <td colSpan="2" className="text-center">
+                                            No Data Found
+                                            </td>
+                                        </tr>
+                                        )}
+                                    </tbody>
                                     </table>
 
                                 </div>

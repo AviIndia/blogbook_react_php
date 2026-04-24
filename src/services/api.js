@@ -1,10 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-      baseURL: "http://localhost/blogbookApi",
+  baseURL: "http://localhost/blogbookApi",
   timeout: 5000,
-  headers: {
-    "Content-Type": "application/json"
-  }
-})
-export default api
+});
+
+export default api;
