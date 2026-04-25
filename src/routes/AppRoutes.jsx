@@ -9,6 +9,7 @@ import ContactUs from "../pages/ContactUs";
 import AddnewBlog from "../pages/AddnewBlog";
 import Myblogs from "../pages/Myblogs";
 import Profile from "../pages/Profile";
+import ViewMyBlog from "../pages/ViewMyBlog";
 import ProtectedRoute from "./ProtectedRoute";
 
 const AppRoutes = () => {
@@ -27,6 +28,7 @@ const AppRoutes = () => {
                  <Route path="/myBlogs" element={ <ProtectedRoute><Myblogs /></ProtectedRoute> }/>
                 <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>}/>
                  <Route path="/category" element={<ProtectedRoute><Category /></ProtectedRoute>}/>
+                  <Route path="/myBlogDetails/:id" element={<ProtectedRoute><ViewMyBlog /></ProtectedRoute>}/>
                 {/* Auth */}
                 <Route path="/login" element={<Login />} />
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost/blogbookApi",
+  baseURL: "https://www.mispltd.co.in/blogApi",
   timeout: 5000,
 });
 

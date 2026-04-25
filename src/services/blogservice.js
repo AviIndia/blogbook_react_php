@@ -61,3 +61,28 @@ export const postNewBlog = async (formData) => {
     };
   }
 };
+
+export const getMyBlogs = async (user_id)=>{
+  try {
+    const res = await api.get(`/blog/getMyBlogs.php`,{params:{user_id}});
+    return res.data;
+
+  } catch (error) {
+    console.error("LOG",error)
+    return {success:false,data:[]}
+  }
+}
+
+export const blogDetails = async (id) => {
+  try {
+    const res = await api.get("/blog/getBlogById.php", {
+      params: { id },
+    });
+
+    console.log(res.data); // ✅ log first
+    return res.data;       // ✅ then return
+  } catch (error) {
+    console.log("Error:", error.message);
+    return { success: false, data: null };
+  }
+};

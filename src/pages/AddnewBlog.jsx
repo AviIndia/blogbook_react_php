@@ -56,6 +56,14 @@ const AddnewBlog = () => {
 
     if (res?.success) {
       alert("Blog added successfully");
+
+      setFormData({  title: "",
+    categoryId: "",
+    content: "",
+    image: "",
+    status: ""
+   });
+
     } else {
       alert(res?.message);
     }
