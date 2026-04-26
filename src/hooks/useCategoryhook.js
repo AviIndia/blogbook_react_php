@@ -8,6 +8,7 @@ export const useCategory = () => {
   const fetchCategory = async () => {
     const res = await getCategory();
     setCategoryData(res.data);
+    console.log(res.data)
   };
 
   useEffect(() => {

@@ -2,12 +2,14 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useCategory } from "../hooks/useCategoryhook";
 
 
 const Header = () => {
 
   const { user, logout } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { categoryData} = useCategory();
 
   return (
     <>
@@ -48,12 +50,21 @@ const Header = () => {
                   >
                     Category
                   </a>
-
-                  <ul className="dropdown-menu">
-                    <li><NavLink className="dropdown-item" to="/category/tech">Tech</NavLink></li>
-                    <li><NavLink className="dropdown-item" to="/category/travel">Travel</NavLink></li>
-                    <li><NavLink className="dropdown-item" to="/category/lifestyle">Lifestyle</NavLink></li>
-                  </ul>
+                  {
+                      <ul className="dropdown-menu">
+                        {categoryData.length > 0 &&
+                          categoryData.map((item, index) => (
+                            <li key={index}>
+                              <NavLink
+                                className="dropdown-item"
+                                to={`/categoryByBlog/${item.id}`}
+                              >
+                                {item.category_name}
+                              </NavLink>
+                            </li>
+                          ))}
+                      </ul>
+                    }
                 </li>
 
                 <li className="nav-item">

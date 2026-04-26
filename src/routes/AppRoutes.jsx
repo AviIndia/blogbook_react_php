@@ -11,6 +11,7 @@ import Myblogs from "../pages/Myblogs";
 import Profile from "../pages/Profile";
 import ViewMyBlog from "../pages/ViewMyBlog";
 import ProtectedRoute from "./ProtectedRoute";
+import CategoryBlog from "../pages/CategoryBlog";
 
 const AppRoutes = () => {
     return (
@@ -18,8 +19,8 @@ const AppRoutes = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/About" element={<Aboutus />} />
-                <Route path="/category/:categoryName" element={<Category />} />
-                <Route path="/blog/:id" element={<BlogDetails />} />
+                <Route path="/categoryByBlog/:category_id" element={<CategoryBlog />} />
+                <Route path="/singleblog/:blog_id" element={<BlogDetails />} />
                 <Route path="/contact" element={<ContactUs />} />
 
 

@@ -7,19 +7,20 @@ import { useNavigate } from "react-router-dom";
 const Myblogs = ()=>{
     const [blogData,setblogData] = useState([]);
      const { user } = useContext(AuthContext);
+     console.log(user.id)
      const navigate = useNavigate();
     const fetchMyBlog = async ()=>{
         try {
            
-            const res = await getMyBlogs();
+            const res = await getMyBlogs(user.id);
             setblogData(res.data);
             console.log(res.data)
         } catch (error) {
-            console.error("Error fetching from blogs")
+            console.error("Error fetching from blogs",error)
         }
     }
     useEffect(()=>{
-        if(user?.id)
+        if(user.id)
         {
             fetchMyBlog(user.id);
         }

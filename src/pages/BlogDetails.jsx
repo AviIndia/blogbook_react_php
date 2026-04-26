@@ -1,4 +1,27 @@
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom";
+import { blogDetails } from "../services/blogservice";
+
 const BlogDetails = ()=>{
+  const [blogdata,setBlogData] = useState();
+  const {blog_id} = useParams();
+  console.log(blog_id)
+  const singleblogData = async ()=>{
+    try {
+      const res = await blogDetails(blog_id);
+      console.log(res.data);
+      setBlogData(res.data);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  useEffect(()=>{
+    if(blog_id)
+    {
+        singleblogData(blog_id)
+    }
+  },[blog_id])
+
     return(
         <>
       
@@ -8,8 +31,8 @@ const BlogDetails = ()=>{
           <div className="row">
             <div className="col-lg-12">
               <div className="text-content">
-                <h4>Post Details</h4>
-                <h2>Single blog post</h2>
+                <h4>Blog Details</h4>
+                <h2>{blogdata?.title}</h2>
               </div>
             </div>
           </div>
@@ -19,30 +42,10 @@ const BlogDetails = ()=>{
     
   
 
-    <section className="call-to-action">
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-12">
-            <div className="main-content">
-              <div className="row">
-                <div className="col-lg-8">
-                  <span>Stand Blog HTML5 Template</span>
-                  <h4>Creative HTML Template For Bloggers!</h4>
-                </div>
-                <div className="col-lg-4">
-                  <div className="main-button">
-                    <a rel="nofollow" href="https://templatemo.com/tm-551-stand-blog" target="_parent">Download Now!</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    
 
 
-    <section className="blog-posts grid-system">
+    <section className="blog-posts grid-system mt-3">
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
@@ -51,19 +54,21 @@ const BlogDetails = ()=>{
                 <div className="col-lg-12">
                   <div className="blog-post">
                     <div className="blog-thumb">
-                      <img src="assets/images/blog-post-02.jpg" alt=""/>
+                      <img src={blogdata?.blog_image} alt=""/>
                     </div>
                     <div className="down-content">
-                      <span>Lifestyle</span>
-                      <a href="post-details.html"><h4>Aenean pulvinar gravida sem nec</h4></a>
+                      <span>{blogdata?.category_name}</span>
+                      <h4>{blogdata?.title}</h4>
                       <ul className="post-info">
-                        <li><a href="#">Admin</a></li>
-                        <li><a href="#">May 12, 2020</a></li>
+                        <li><a href="#">{blogdata?.user_name}</a></li>
+                        <li><a href="#">{new Date(blogdata?.creation_datetime).toLocaleDateString("en-GB", {
+                                                                        day: "numeric",
+                                                                        month: "long",
+                                                                        year: "numeric",
+                                                                    })}</a></li>
                         <li><a href="#">10 Comments</a></li>
                       </ul>
-                      <p>You can browse different tags such as <a rel="nofollow" href="https://templatemo.com/tag/multi-page" target="_parent">multi-page</a>, <a rel="nofollow" href="https://templatemo.com/tag/resume" target="_parent">resume</a>, <a rel="nofollow" href="https://templatemo.com/tag/video" target="_parent">video</a>, etc. to see more CSS templates. Sed hendrerit rutrum arcu, non malesuada nisi. Sed id facilisis turpis. Donec justo elit, dapibus vel ultricies in, molestie sit amet risus. In nunc augue, rhoncus sed libero et, tincidunt tempor nisl. 
-                      Donec egestas, quam eu rutrum ultrices, sapien ante posuere nisl, ac eleifend eros orci vel ante. Pellentesque vitae eleifend velit. Etiam blandit felis sollicitudin vestibulum feugiat.</p>
-                      <p>Donec tincidunt leo nec magna gravida varius. Suspendisse felis orci, egestas ac sodales quis, venenatis et neque. Vivamus facilisis dignissim arcu et blandit. Maecenas finibus dui non pulvinar lacinia. Ut lacinia finibus lorem vel porttitor. Suspendisse et metus nec libero ultrices varius eget in risus. Cras id nibh at erat pulvinar malesuada et non ipsum. Suspendisse id ipsum leo.</p>
+                      <p>{blogdata?.content}</p>
                       <div className="post-options">
                         <div className="row">
                           <div className="col-6">

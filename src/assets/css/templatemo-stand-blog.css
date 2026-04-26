@@ -445,7 +445,7 @@ header .navbar {
 }
 
 .blog-posts .down-content h4 {
-	font-size: 20px;
+	font-size: 15px;
 	letter-spacing: 0.25px;
 }
 
@@ -463,18 +463,18 @@ header .navbar {
 
 .blog-posts .down-content ul.post-info li a {
 	font-size: 14px;
-	color: #aaa;
+	color: #1b6037;
 	font-weight: 400;
 	transition: all .3s;
 }
 
 .blog-posts .down-content ul.post-info li a:hover {
-	color: #f48840;
+	color: #e16e22;
 }
 
 .blog-posts .down-content p {
-	padding: 15px 0px;
-	margin: 15px 0px;
+	padding: 10px 0px;
+	margin: 10px 0px;
 	color:#1e1e1e;
 	border-top: 1px solid #938f8f;
 	border-bottom: 1px solid #938f8f;
@@ -570,8 +570,8 @@ ul.page-numbers li a:hover {
 
 .blog-posts .comments ul li {
 	display: inline-block;
-	margin-bottom: 20px;
-	padding-bottom: 20px;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
 	border-bottom: 1px solid #eee;
 }
 
@@ -601,15 +601,15 @@ ul.page-numbers li a:hover {
 
 .blog-posts .comments ul li .right-content h4 {
 	color: #20232e;
-	font-size: 19px;
+	font-size: 15px;
 	font-weight: 900;
 	letter-spacing: 0.5px;
 }
 
 .blog-posts .comments ul li .right-content h4 span {
-	font-size: 14px;
-    color: #aaa;
-	font-weight: 400;
+	font-size: 12px;
+    color: #888888;
+	font-weight: 500;
 	letter-spacing: 0.25px;
 	margin-left: 20px;
 }

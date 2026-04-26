@@ -1,3 +1,4 @@
+import { data } from "react-router-dom";
 import api from "./api"
 
 export const addCategory = async (data) => {
@@ -64,9 +65,10 @@ export const postNewBlog = async (formData) => {
 
 export const getMyBlogs = async (user_id)=>{
   try {
+    console.log("Fetch From service",user_id)
     const res = await api.get(`/blog/getMyBlogs.php`,{params:{user_id}});
     return res.data;
-
+    
   } catch (error) {
     console.error("LOG",error)
     return {success:false,data:[]}
@@ -80,9 +82,48 @@ export const blogDetails = async (id) => {
     });
 
     console.log(res.data); // ✅ log first
+    console.log("From Service", id)
     return res.data;       // ✅ then return
   } catch (error) {
     console.log("Error:", error.message);
     return { success: false, data: null };
   }
 };
+
+export const blogsBycategory = async(category_id)=>{
+
+  try {
+    const res = await api.get(`/blog/getBlogs.php`,
+    {params:{category_id}
+  })
+   console.log(res.data);
+  return res.data;
+ } catch (error) {
+    console.log(error);
+    return{success:false,data:null}
+  }
+}
+
+//Random category selected by blog for home page 
+
+export const randomBlog = async ()=>{
+  try {
+      const res = await api.get(`/blog/randomThreeBlogs.php`);
+      console.log(res.data);
+      return res.data;
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// Randomly change for single blog 
+
+export const randomSingleBlog = async ()=>{
+  try {
+      const res = await api.get(`/blog/homeApiBlog.php`);
+      console.log(res.data);
+      return res.data;
+  } catch (error) {
+    console.log(error)
+  }
+}
